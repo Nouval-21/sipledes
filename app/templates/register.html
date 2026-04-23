@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% block title %}Daftar - SiPelDes{% endblock %} {%
+block public_content %}
+<div
+  class="min-vh-100 d-flex align-items-center py-5"
+  style="background: #eaf2ff"
+>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold" style="color: #1a5276">
+            <i class="bi bi-building"></i> SiPelDes
+          </h2>
+        </div>
+        <div class="card shadow border-0 p-4">
+          <h5 class="mb-3">Daftar Akun Warga</h5>
+          <form method="POST">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label"
+                  >NIK <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  name="nik"
+                  class="form-control"
+                  maxlength="16"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"
+                  >Nama Lengkap <span class="text-danger">*</span></label
+                >
+                <input type="text" name="nama" class="form-control" required />
+              </div>
+              <div class="col-12">
+                <label class="form-label"
+                  >Email <span class="text-danger">*</span></label
+                >
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Telepon</label>
+                <input type="text" name="telepon" class="form-control" />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Alamat</label>
+                <textarea
+                  name="alamat"
+                  class="form-control"
+                  rows="2"
+                ></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"
+                  >Password <span class="text-danger">*</span></label
+                >
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"
+                  >Konfirmasi Password <span class="text-danger">*</span></label
+                >
+                <input
+                  type="password"
+                  name="confirm_password"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">
+                  Daftar Sekarang
+                </button>
+              </div>
+            </div>
+          </form>
+          <hr />
+          <p class="text-center mb-0">
+            Sudah punya akun? <a href="{{ url_for('auth.login') }}">Login</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

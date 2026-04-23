@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% block title %}Detail Surat - SiPelDes{% endblock %}
+{% block page_title %}Detail Pengajuan Surat{% endblock %} {% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm border-0 p-4">
+      <div class="row mb-3">
+        <div class="col-sm-4 text-muted">Jenis Surat</div>
+        <div class="col-sm-8 fw-bold">{{ surat.jenis_surat }}</div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-4 text-muted">Keperluan</div>
+        <div class="col-sm-8">{{ surat.keperluan }}</div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-4 text-muted">Status</div>
+        <div class="col-sm-8">
+          {% set badge =
+          {'pending':'warning','diproses':'info','selesai':'success','ditolak':'danger'}
+          %}
+          <span class="badge bg-{{ badge.get(surat.status, 'secondary') }} fs-6"
+            >{{ surat.status }}</span
+          >
+        </div>
+      </div>
+      {% if surat.keterangan %}
+      <div class="row mb-3">
+        <div class="col-sm-4 text-muted">Keterangan Admin</div>
+        <div class="col-sm-8">{{ surat.keterangan }}</div>
+      </div>
+      {% endif %} {% if surat.file_url %}
+      <div class="row mb-3">
+        <div class="col-sm-4 text-muted">Lampiran</div>
+        <div class="col-sm-8">
+          <a
+            href="{{ surat.file_url }}"
+            target="_blank"
+            class="btn btn-sm btn-outline-primary"
+          >
+            <i class="bi bi-download"></i> Lihat Lampiran
+          </a>
+        </div>
+      </div>
+      {% endif %} {% if surat.hasil_url %}
+      <div class="row mb-3">
+        <div class="col-sm-4 text-muted">Surat Hasil</div>
+        <div class="col-sm-8">
+          <a
+            href="{{ surat.hasil_url }}"
+            target="_blank"
+            class="btn btn-sm btn-success"
+          >
+            <i class="bi bi-download"></i> Download Surat
+          </a>
+        </div>
+      </div>
+      {% endif %}
+      <div class="row mb-3">
+        <div class="col-sm-4 text-muted">Tanggal Pengajuan</div>
+        <div class="col-sm-8">
+          {{ surat.created_at.strftime('%d %B %Y, %H:%M') }}
+        </div>
+      </div>
+      <hr />
+      <a
+        href="{{ url_for('surat.list_surat') }}"
+        class="btn btn-outline-secondary"
+      >
+        <i class="bi bi-arrow-left"></i> Kembali
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

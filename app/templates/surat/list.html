@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% block title %}Surat Saya - SiPelDes{% endblock %}
+{% block page_title %}Daftar Pengajuan Surat{% endblock %} {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div></div>
+  <a href="{{ url_for('surat.ajukan') }}" class="btn btn-primary">
+    <i class="bi bi-plus-circle"></i> Ajukan Surat Baru
+  </a>
+</div>
+
+{% if surats %}
+<div class="card shadow-sm border-0">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Jenis Surat</th>
+          <th>Keperluan</th>
+          <th>Status</th>
+          <th>Tanggal</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in surats %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ s.jenis_surat }}</td>
+          <td>
+            {{ s.keperluan[:50] }}{% if s.keperluan|length > 50 %}...{% endif %}
+          </td>
+          <td>
+            {% set badge =
+            {'pending':'warning','diproses':'info','selesai':'success','ditolak':'danger'}
+            %}
+            <span class="badge bg-{{ badge.get(s.status, 'secondary') }}"
+              >{{ s.status }}</span
+            >
+          </td>
+          <td>{{ s.created_at.strftime('%d/%m/%Y') }}</td>
+          <td>
+            <a
+              href="{{ url_for('surat.detail', surat_id=s.id) }}"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <i class="bi bi-eye"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="text-center py-5">
+  <i class="bi bi-inbox fs-1 text-muted"></i>
+  <p class="text-muted mt-3">Belum ada pengajuan surat.</p>
+  <a href="{{ url_for('surat.ajukan') }}" class="btn btn-primary"
+    >Ajukan Sekarang</a
+  >
+</div>
+{% endif %} {% endblock %}

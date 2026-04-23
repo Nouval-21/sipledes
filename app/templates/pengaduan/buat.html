@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block title %}Buat Pengaduan - SiPelDes{% endblock
+%} {% block page_title %}Buat Pengaduan Baru{% endblock %} {% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm border-0 p-4">
+      <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label fw-bold"
+            >Judul Pengaduan <span class="text-danger">*</span></label
+          >
+          <input
+            type="text"
+            name="judul"
+            class="form-control"
+            placeholder="Ringkasan singkat pengaduan..."
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-bold">Kategori</label>
+          <select name="kategori" class="form-select">
+            <option value="">-- Pilih Kategori --</option>
+            {% for k in kategori_list %}
+            <option value="{{ k }}">{{ k }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-bold"
+            >Isi Pengaduan <span class="text-danger">*</span></label
+          >
+          <textarea
+            name="isi"
+            class="form-control"
+            rows="5"
+            placeholder="Jelaskan pengaduan Anda secara detail..."
+            required
+          ></textarea>
+        </div>
+        <div class="mb-4">
+          <label class="form-label fw-bold">Foto Bukti</label>
+          <input
+            type="file"
+            name="foto"
+            class="form-control"
+            accept=".jpg,.jpeg,.png"
+          />
+          <div class="form-text">Format: JPG, PNG. Maks 16MB.</div>
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-warning">
+            <i class="bi bi-send"></i> Kirim Pengaduan
+          </button>
+          <a
+            href="{{ url_for('pengaduan.list_pengaduan') }}"
+            class="btn btn-outline-secondary"
+            >Batal</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

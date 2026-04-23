@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %}Login - SiPelDes{% endblock %} {%
+block public_content %}
+<div class="min-vh-100 d-flex align-items-center" style="background: #eaf2ff">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold" style="color: #1a5276">
+            <i class="bi bi-building"></i> SiPelDes
+          </h2>
+          <p class="text-muted">Sistem Pelayanan Desa</p>
+        </div>
+        <div class="card shadow border-0 p-4">
+          <h5 class="mb-3">Login Akun</h5>
+          <form method="POST">
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+          <hr />
+          <p class="text-center mb-0">
+            Belum punya akun?
+            <a href="{{ url_for('auth.register') }}">Daftar</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

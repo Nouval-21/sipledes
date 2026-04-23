@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block title %}Pengaduan Saya - SiPelDes{% endblock
+%} {% block page_title %}Daftar Pengaduan Saya{% endblock %} {% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('pengaduan.buat') }}" class="btn btn-warning">
+    <i class="bi bi-plus-circle"></i> Buat Pengaduan Baru
+  </a>
+</div>
+
+{% if pengaduans %}
+<div class="row g-3">
+  {% for p in pengaduans %}
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h6 class="card-title">{{ p.judul }}</h6>
+          {% set badge =
+          {'masuk':'secondary','ditindak':'warning','selesai':'success'} %}
+          <span class="badge bg-{{ badge.get(p.status, 'secondary') }}"
+            >{{ p.status }}</span
+          >
+        </div>
+        {% if p.kategori %}<span class="badge bg-light text-dark"
+          >{{ p.kategori }}</span
+        >{% endif %}
+        <p class="card-text text-muted mt-2 small">
+          {{ p.isi[:100] }}{% if p.isi|length > 100 %}...{% endif %}
+        </p>
+        {% if p.foto_url %}
+        <a
+          href="{{ p.foto_url }}"
+          target="_blank"
+          class="btn btn-sm btn-outline-secondary"
+        >
+          <i class="bi bi-image"></i> Foto Bukti
+        </a>
+        {% endif %} {% if p.tanggapan %}
+        <div class="alert alert-info mt-2 p-2 small">
+          <strong>Tanggapan:</strong> {{ p.tanggapan }}
+        </div>
+        {% endif %}
+        <div class="text-muted small mt-2">
+          {{ p.created_at.strftime('%d/%m/%Y') }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="text-center py-5">
+  <i class="bi bi-megaphone fs-1 text-muted"></i>
+  <p class="text-muted mt-3">Belum ada pengaduan.</p>
+  <a href="{{ url_for('pengaduan.buat') }}" class="btn btn-warning"
+    >Buat Pengaduan</a
+  >
+</div>
+{% endif %} {% endblock %}

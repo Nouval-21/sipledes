@@ -1,0 +1,103 @@
+{% extends 'base.html' %} {% block title %}Kelola Pengaduan - Admin{% endblock
+%} {% block page_title %}Kelola Pengaduan Warga{% endblock %} {% block content
+%}
+<div class="row g-3">
+  {% for p in pengaduans %}
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h6>{{ p.judul }}</h6>
+          {% set badge =
+          {'masuk':'secondary','ditindak':'warning','selesai':'success'} %}
+          <span class="badge bg-{{ badge.get(p.status,'secondary') }}"
+            >{{ p.status }}</span
+          >
+        </div>
+        <small class="text-muted"
+          >Oleh: {{ p.pelapor.nama }} | {{ p.created_at.strftime('%d/%m/%Y')
+          }}</small
+        >
+        {% if p.kategori %}<br /><span class="badge bg-light text-dark"
+          >{{ p.kategori }}</span
+        >{% endif %}
+        <p class="mt-2 small">{{ p.isi }}</p>
+        {% if p.foto_url %}
+        <a
+          href="{{ p.foto_url }}"
+          target="_blank"
+          class="btn btn-sm btn-outline-secondary mb-2"
+        >
+          <i class="bi bi-image"></i> Foto
+        </a>
+        {% endif %}
+        <button
+          class="btn btn-sm btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#modal-p-{{ p.id }}"
+        >
+          Tanggapi
+        </button>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-p-{{ p.id }}" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title">Tanggapi Pengaduan</h6>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <form
+            method="POST"
+            action="{{ url_for('admin.update_pengaduan', p_id=p.id) }}"
+          >
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select">
+                  {% for opt in ['masuk','ditindak','selesai'] %}
+                  <option
+                    value="{{ opt }}"
+                    {%
+                    if
+                    p.status=""
+                    ="opt"
+                    %}selected{%
+                    endif
+                    %}
+                  >
+                    {{ opt }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Tanggapan</label>
+                <textarea name="tanggapan" class="form-control" rows="3">
+{{ p.tanggapan or '' }}</textarea
+                >
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Batal
+              </button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

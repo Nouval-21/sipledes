@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block title %}Admin Dashboard - SiPelDes{% endblock
+%} {% block page_title %}Dashboard Admin{% endblock %} {% block content %}
+<div class="row g-4 mb-4">
+  <div class="col-md-3">
+    <div
+      class="card border-0 shadow-sm text-center p-3"
+      style="border-left: 4px solid #2980b9 !important"
+    >
+      <h2 class="fw-bold text-primary">{{ total_surat }}</h2>
+      <p class="text-muted mb-0"><i class="bi bi-file-text"></i> Total Surat</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <h2 class="fw-bold text-warning">{{ pending_surat }}</h2>
+      <p class="text-muted mb-0"><i class="bi bi-clock"></i> Surat Pending</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <h2 class="fw-bold text-danger">{{ total_pengaduan }}</h2>
+      <p class="text-muted mb-0">
+        <i class="bi bi-megaphone"></i> Total Pengaduan
+      </p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-0 shadow-sm text-center p-3">
+      <h2 class="fw-bold text-success">{{ total_warga }}</h2>
+      <p class="text-muted mb-0"><i class="bi bi-people"></i> Total Warga</p>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card border-0 shadow-sm p-3">
+      <h6><i class="bi bi-file-text text-primary"></i> Aksi Cepat</h6>
+      <a
+        href="{{ url_for('admin.kelola_surat') }}?status=pending"
+        class="btn btn-warning btn-sm me-2 mt-2"
+      >
+        Surat Pending ({{ pending_surat }})
+      </a>
+      <a
+        href="{{ url_for('admin.kelola_pengaduan') }}"
+        class="btn btn-danger btn-sm mt-2"
+      >
+        Kelola Pengaduan
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

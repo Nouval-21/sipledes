@@ -1,0 +1,130 @@
+{% extends 'base.html' %} {% block title %}Kelola Surat - Admin{% endblock %} {%
+block page_title %}Kelola Pengajuan Surat{% endblock %} {% block content %}
+<div class="mb-3 d-flex gap-2">
+  <a
+    href="{{ url_for('admin.kelola_surat') }}"
+    class="btn btn-sm {% if not status %}btn-primary{% else %}btn-outline-primary{% endif %}"
+    >Semua</a
+  >
+  {% for s in ['pending','diproses','selesai','ditolak'] %}
+  <a
+    href="{{ url_for('admin.kelola_surat') }}?status={{ s }}"
+    class="btn btn-sm {% if status == s %}btn-primary{% else %}btn-outline-primary{% endif %}"
+  >
+    {{ s|capitalize }}
+  </a>
+  {% endfor %}
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Pemohon</th>
+          <th>Jenis</th>
+          <th>Keperluan</th>
+          <th>Status</th>
+          <th>Tgl</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in surats %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ s.pemohon.nama }}</td>
+          <td><small>{{ s.jenis_surat }}</small></td>
+          <td><small>{{ s.keperluan[:40] }}...</small></td>
+          <td>
+            {% set badge =
+            {'pending':'warning','diproses':'info','selesai':'success','ditolak':'danger'}
+            %}
+            <span class="badge bg-{{ badge.get(s.status,'secondary') }}"
+              >{{ s.status }}</span
+            >
+          </td>
+          <td><small>{{ s.created_at.strftime('%d/%m/%y') }}</small></td>
+          <td>
+            <button
+              class="btn btn-sm btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-{{ s.id }}"
+            >
+              Update
+            </button>
+          </td>
+        </tr>
+        <!-- Modal -->
+        <div class="modal fade" id="modal-{{ s.id }}" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h6 class="modal-title">Update Status Surat #{{ s.id }}</h6>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <form
+                method="POST"
+                action="{{ url_for('admin.update_surat', surat_id=s.id) }}"
+              >
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label class="form-label">Pemohon</label>
+                    <input
+                      class="form-control"
+                      value="{{ s.pemohon.nama }}"
+                      disabled
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                      {% for opt in ['pending','diproses','selesai','ditolak']
+                      %}
+                      <option
+                        value="{{ opt }}"
+                        {%
+                        if
+                        s.status=""
+                        ="opt"
+                        %}selected{%
+                        endif
+                        %}
+                      >
+                        {{ opt }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Keterangan</label>
+                    <textarea name="keterangan" class="form-control" rows="3">
+{{ s.keterangan or '' }}</textarea
+                    >
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Batal
+                  </button>
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
