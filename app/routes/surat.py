@@ -19,9 +19,7 @@ def upload_to_s3(file, folder='lampiran'):
     """Upload file ke S3, return public URL."""
     s3 = boto3.client(
         's3',
-        aws_access_key_id     = current_app.config['AWS_ACCESS_KEY_ID'],
-        aws_secret_access_key = current_app.config['AWS_SECRET_ACCESS_KEY'],
-        region_name           = current_app.config['AWS_REGION'],
+        region_name = os.environ.get('AWS_REGION', 'ap-southeast-1'),
     )
     bucket = current_app.config['S3_BUCKET']
     ext      = file.filename.rsplit('.', 1)[1].lower()

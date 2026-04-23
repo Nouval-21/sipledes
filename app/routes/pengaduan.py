@@ -1,4 +1,4 @@
-import boto3, uuid
+import boto3, os, uuid
 from flask import (Blueprint, render_template, redirect, url_for,
                    flash, request, current_app)
 from flask_login import login_required, current_user
@@ -12,9 +12,7 @@ KATEGORI = ['Infrastruktur', 'Kebersihan', 'Keamanan',
 def upload_to_s3(file, folder='pengaduan'):
     s3 = boto3.client(
         's3',
-        aws_access_key_id     = current_app.config['AWS_ACCESS_KEY_ID'],
-        aws_secret_access_key = current_app.config['AWS_SECRET_ACCESS_KEY'],
-        region_name           = current_app.config['AWS_REGION'],
+        region_name = os.environ.get('AWS_REGION', 'ap-southeast-1'),
     )
     bucket   = current_app.config['S3_BUCKET']
     ext      = file.filename.rsplit('.', 1)[1].lower()
