@@ -23,7 +23,6 @@ def upload_to_s3(file, folder='lampiran'):
     bucket = current_app.config['S3_BUCKET']
     ext = file.filename.rsplit('.', 1)[1].lower()
     filename = f"{folder}/{uuid.uuid4().hex}.{ext}"
-
     s3.upload_fileobj(
         file,
         bucket,
