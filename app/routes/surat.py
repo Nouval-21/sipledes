@@ -31,7 +31,7 @@ def upload_to_s3(file, folder='lampiran'):
         ExtraArgs={'ContentType': file.content_type}
     )
     cloudfront_url = current_app.config['CLOUDFRONT_URL']
-return f"{cloudfront_url}/{filename}"
+    return f"{cloudfront_url}/{filename}"
 
 def allowed_file(filename):
     return ('.' in filename and
