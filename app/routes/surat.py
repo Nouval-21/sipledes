@@ -1,90 +1,111 @@
-import boto3, uuid, os
-from flask import (Blueprint, render_template, redirect, url_for,
-                   flash, request, current_app)
-from flask_login import login_required, current_user
-from app.models import db, Surat
+{% extends 'base.html' %}
+{% block title %}Dashboard - SiPelDes{% endblock %}
+{% block content %}
 
-surat_bp = Blueprint('surat', __name__)
+<div class="row g-4">
+  <!-- Welcome Banner -->
+  <div class="col-12">
+    <div class="p-4 rounded-3" style="background: linear-gradient(135deg, #1a5276, #2e86c1);">
+      <h4 class="text-white fw-bold mb-1">
+        👋 Selamat datang, {{ current_user.nama }}!
+      </h4>
+      <p class="text-white opacity-75 mb-0">
+        Selamat menggunakan SiPelDes — Sistem Pelayanan Desa Digital. 
+        Layanan administrasi desa kini lebih mudah dan cepat secara online.
+      </p>
+    </div>
+  </div>
 
-JENIS_SURAT = [
-    'Surat Domisili',
-    'Surat Keterangan Usaha',
-    'Surat Keterangan Tidak Mampu',
-    'Surat Pengantar KTP',
-    'Surat Keterangan Kelahiran',
-    'Surat Keterangan Kematian',
-]
+  <!-- Info Aplikasi -->
+  <div class="col-12">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-info-circle text-primary"></i> Tentang SiPelDes</h5>
+        <p class="text-muted mb-0">
+          <strong>SiPelDes (Sistem Pelayanan Desa)</strong> adalah platform digital yang dirancang 
+          untuk memudahkan warga desa dalam mengakses layanan administrasi secara online. 
+          Dengan SiPelDes, Anda dapat mengajukan surat keterangan, memantau status pengajuan, 
+          dan menyampaikan pengaduan kepada pemerintah desa kapan saja dan di mana saja 
+          tanpa perlu datang langsung ke kantor desa.
+        </p>
+      </div>
+    </div>
+  </div>
 
-def upload_to_s3(file, folder='lampiran'):
-    """Upload file ke S3, return public URL."""
-    s3 = boto3.client(
-        's3',
-        region_name = os.environ.get('AWS_REGION', 'ap-southeast-1'),
-    )
-    bucket = current_app.config['S3_BUCKET']
-    ext      = file.filename.rsplit('.', 1)[1].lower()
-    filename = f"{folder}/{uuid.uuid4().hex}.{ext}"
-    
-    s3.upload_fileobj(
-        file,
-        bucket,
-        filename,
-        ExtraArgs={'ContentType': file.content_type}
-    )
-    region = current_app.config['AWS_REGION']
-    return f"https://{bucket}.s3.{region}.amazonaws.com/{filename}"
+  <!-- Layanan -->
+  <div class="col-12">
+    <h5 class="fw-bold mb-3">Layanan Tersedia</h5>
+  </div>
 
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body p-4 text-center">
+        <i class="bi bi-file-earmark-text fs-1 text-primary mb-3 d-block"></i>
+        <h6 class="fw-bold">Pengajuan Surat</h6>
+        <p class="text-muted small mb-3">
+          Ajukan surat keterangan domisili, usaha, tidak mampu, dan lainnya secara online.
+        </p>
+        <a href="{{ url_for('surat.ajukan') }}" class="btn btn-primary btn-sm">
+          <i class="bi bi-plus-circle"></i> Ajukan Sekarang
+        </a>
+      </div>
+    </div>
+  </div>
 
-def allowed_file(filename):
-    return ('.' in filename and
-            filename.rsplit('.', 1)[1].lower()
-            in current_app.config['ALLOWED_EXTENSIONS'])
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body p-4 text-center">
+        <i class="bi bi-clock-history fs-1 text-success mb-3 d-block"></i>
+        <h6 class="fw-bold">Status Pengajuan</h6>
+        <p class="text-muted small mb-3">
+          Pantau perkembangan pengajuan surat Anda secara real-time.
+        </p>
+        <a href="{{ url_for('surat.list_surat') }}" class="btn btn-success btn-sm">
+          <i class="bi bi-search"></i> Lihat Status
+        </a>
+      </div>
+    </div>
+  </div>
 
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-body p-4 text-center">
+        <i class="bi bi-megaphone fs-1 text-warning mb-3 d-block"></i>
+        <h6 class="fw-bold">Pengaduan Warga</h6>
+        <p class="text-muted small mb-3">
+          Sampaikan aspirasi dan pengaduan kepada pemerintah desa disertai foto bukti.
+        </p>
+        <a href="{{ url_for('pengaduan.buat') }}" class="btn btn-warning btn-sm">
+          <i class="bi bi-megaphone"></i> Buat Pengaduan
+        </a>
+      </div>
+    </div>
+  </div>
 
-@surat_bp.route('/')
-@login_required
-def list_surat():
-    if current_user.role == 'admin':
-        return redirect(url_for('admin.kelola_surat'))
-    surats = Surat.query.filter_by(user_id=current_user.id)\
-                        .order_by(Surat.created_at.desc()).all()
-    return render_template('surat/list.html', surats=surats)
+  <!-- Info Akun -->
+  <div class="col-12">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-person-circle text-secondary"></i> Informasi Akun</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <table class="table table-borderless mb-0">
+              <tr><td class="text-muted" width="40%">Nama</td><td><strong>{{ current_user.nama }}</strong></td></tr>
+              <tr><td class="text-muted">NIK</td><td><strong>{{ current_user.nik }}</strong></td></tr>
+              <tr><td class="text-muted">Email</td><td><strong>{{ current_user.email }}</strong></td></tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <table class="table table-borderless mb-0">
+              <tr><td class="text-muted" width="40%">Telepon</td><td><strong>{{ current_user.telepon or '-' }}</strong></td></tr>
+              <tr><td class="text-muted">Alamat</td><td><strong>{{ current_user.alamat or '-' }}</strong></td></tr>
+              <tr><td class="text-muted">Role</td><td><span class="badge bg-primary">{{ current_user.role }}</span></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-@surat_bp.route('/ajukan', methods=['GET', 'POST'])
-@login_required
-def ajukan():
-    if request.method == 'POST':
-        jenis    = request.form.get('jenis_surat')
-        keperluan= request.form.get('keperluan', '').strip()
-        file     = request.files.get('lampiran')
-        
-        if not jenis or not keperluan:
-            flash('Jenis surat dan keperluan wajib diisi.', 'danger')
-            return render_template('surat/ajukan.html', jenis_list=JENIS_SURAT)
-        
-        file_url = None
-        if file and file.filename and allowed_file(file.filename):
-            file_url = upload_to_s3(file, folder='lampiran')
-        
-        surat = Surat(user_id=current_user.id,
-                      jenis_surat=jenis,
-                      keperluan=keperluan,
-                      file_url=file_url)
-        db.session.add(surat)
-        db.session.commit()
-        
-        flash('Pengajuan surat berhasil dikirim!', 'success')
-        return redirect(url_for('surat.list_surat'))
-    
-    return render_template('surat/ajukan.html', jenis_list=JENIS_SURAT)
-
-
-@surat_bp.route('/<int:surat_id>')
-@login_required
-def detail(surat_id):
-    surat = Surat.query.get_or_404(surat_id)
-    if surat.user_id != current_user.id and current_user.role != 'admin':
-        flash('Akses ditolak.', 'danger')
-        return redirect(url_for('surat.list_surat'))
-    return render_template('surat/detail.html', surat=surat)
+</div>
+{% endblock %}
