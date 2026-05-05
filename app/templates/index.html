@@ -1,11 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}SiPelDes - Sistem Pelayanan Desa{% endblock %}
+
+{% block public_content %}
+<div class="min-vh-100 d-flex flex-column">
+  <nav class="navbar navbar-dark" style="background: #1a5276">
+    <div class="container">
+      <span class="navbar-brand fw-bold"><i class="bi bi-building"></i> SiPelDes</span>
+      <div>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-sm me-2">Login</a>
+        <a href="{{ url_for('auth.register') }}" class="btn btn-warning btn-sm">Daftar</a>
+      </div>
+    </div>
+  </nav>
+  <div class="flex-grow-1 d-flex align-items-center" style="background: linear-gradient(135deg, #1a5276, #2e86c1)">
+    <div class="container text-center text-white py-5">
+      <h1 class="display-4 fw-bold mb-3">SiPelDes</h1>
+      <p class="lead mb-2">Sistem Pelayanan Desa Digital</p>
+      <p class="mb-4 opacity-75">Ajukan surat, lacak status, dan sampaikan pengaduan Anda secara online</p>
+      <div class="d-flex gap-3 justify-content-center">
+        <a href="{{ url_for('auth.register') }}" class="btn btn-warning btn-lg px-4">Mulai Sekarang</a>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg px-4">Login</a>
+      </div>
+    </div>
+  </div>
+  <div class="container py-5">
+    <h2 class="text-center mb-4">Layanan Kami</h2>
+    <div class="row g-4 text-center">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm p-4">
+          <i class="bi bi-file-earmark-text fs-1 text-primary mb-3"></i>
+          <h5>Pengajuan Surat</h5>
+          <p class="text-muted">Ajukan berbagai jenis surat administrasi desa secara online</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm p-4">
+          <i class="bi bi-search fs-1 text-success mb-3"></i>
+          <h5>Tracking Status</h5>
+          <p class="text-muted">Pantau perkembangan pengajuan surat Anda secara real-time</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm p-4">
+          <i class="bi bi-megaphone fs-1 text-warning mb-3"></i>
+          <h5>Pengaduan Warga</h5>
+          <p class="text-muted">Sampaikan aspirasi dan pengaduan kepada pemerintah desa</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
 <div class="row g-4">
   <!-- Welcome Banner -->
   <div class="col-12">
     <div class="p-4 rounded-3" style="background: linear-gradient(135deg, #1a5276, #2e86c1);">
-      <h4 class="text-white fw-bold mb-1">
-        Selamat datang, {{ current_user.nama }}!
-      </h4>
+      <h4 class="text-white fw-bold mb-1">Selamat datang, {{ current_user.nama }}!</h4>
       <p class="text-white opacity-75 mb-0">
         Selamat menggunakan SiPelDes — Sistem Pelayanan Desa Digital.
         Layanan administrasi desa kini lebih mudah dan cepat secara online.
@@ -13,7 +65,7 @@
     </div>
   </div>
 
-  <!-- Info Aplikasi -->
+  <!-- Tentang -->
   <div class="col-12">
     <div class="card border-0 shadow-sm">
       <div class="card-body p-4">
@@ -39,9 +91,7 @@
       <div class="card-body p-4 text-center">
         <i class="bi bi-file-earmark-text fs-1 text-primary mb-3 d-block"></i>
         <h6 class="fw-bold">Pengajuan Surat</h6>
-        <p class="text-muted small mb-3">
-          Ajukan surat keterangan domisili, usaha, tidak mampu, dan lainnya secara online.
-        </p>
+        <p class="text-muted small mb-3">Ajukan surat keterangan domisili, usaha, tidak mampu, dan lainnya secara online.</p>
         <a href="{{ url_for('surat.ajukan') }}" class="btn btn-primary btn-sm">Ajukan Sekarang</a>
       </div>
     </div>
@@ -52,9 +102,7 @@
       <div class="card-body p-4 text-center">
         <i class="bi bi-clock-history fs-1 text-success mb-3 d-block"></i>
         <h6 class="fw-bold">Status Pengajuan</h6>
-        <p class="text-muted small mb-3">
-          Pantau perkembangan pengajuan surat Anda secara real-time.
-        </p>
+        <p class="text-muted small mb-3">Pantau perkembangan pengajuan surat Anda secara real-time.</p>
         <a href="{{ url_for('surat.list_surat') }}" class="btn btn-success btn-sm">Lihat Status</a>
       </div>
     </div>
@@ -65,9 +113,7 @@
       <div class="card-body p-4 text-center">
         <i class="bi bi-megaphone fs-1 text-warning mb-3 d-block"></i>
         <h6 class="fw-bold">Pengaduan Warga</h6>
-        <p class="text-muted small mb-3">
-          Sampaikan aspirasi dan pengaduan kepada pemerintah desa disertai foto bukti.
-        </p>
+        <p class="text-muted small mb-3">Sampaikan aspirasi dan pengaduan kepada pemerintah desa disertai foto bukti.</p>
         <a href="{{ url_for('pengaduan.buat') }}" class="btn btn-warning btn-sm">Buat Pengaduan</a>
       </div>
     </div>
