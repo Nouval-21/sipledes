@@ -30,8 +30,8 @@ def upload_to_s3(file, folder='lampiran'):
         filename,
         ExtraArgs={'ContentType': file.content_type}
     )
-    region = current_app.config['AWS_REGION']
-    return f"https://{bucket}.s3.{region}.amazonaws.com/{filename}"
+    cloudfront_url = current_app.config['CLOUDFRONT_URL']
+return f"{cloudfront_url}/{filename}"
 
 def allowed_file(filename):
     return ('.' in filename and
