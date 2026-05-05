@@ -21,6 +21,7 @@ class Config:
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
     AWS_REGION            = os.environ.get('AWS_REGION', 'ap-southeast-1')
     S3_BUCKET             = os.environ.get('S3_BUCKET', '')
+    CLOUDFRONT_URL        = os.environ.get('CLOUDFRONT_URL', 'https://ddmpspn2i2wv9.cloudfront.net')
 
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max upload
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     ALLOWED_EXTENSIONS = {'pdf', 'jpg', 'jpeg', 'png'}
