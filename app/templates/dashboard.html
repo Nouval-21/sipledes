@@ -2,104 +2,373 @@
 {% block title %}Dashboard - SiPelDes{% endblock %}
 {% block content %}
 
-<div class="row g-4">
-  <!-- Welcome Banner -->
-  <div class="col-12">
-    <div class="p-4 rounded-3" style="background: linear-gradient(135deg, #1a5276, #2e86c1);">
-      <h4 class="text-white fw-bold mb-1">
-        Selamat datang, {{ current_user.nama }}!
-      </h4>
-      <p class="text-white opacity-75 mb-0">
-        Selamat menggunakan SiPelDes — Sistem Pelayanan Desa Digital.
-        Layanan administrasi desa kini lebih mudah dan cepat secara online.
-      </p>
-    </div>
-  </div>
+<div class="container-fluid">
 
-  <!-- Info Aplikasi -->
-  <div class="col-12">
-    <div class="card border-0 shadow-sm">
-      <div class="card-body p-4">
-        <h5 class="fw-bold mb-3">Tentang SiPelDes</h5>
-        <p class="text-muted mb-0">
-          <strong>SiPelDes (Sistem Pelayanan Desa)</strong> adalah platform digital yang dirancang
-          untuk memudahkan warga desa dalam mengakses layanan administrasi secara online.
-          Dengan SiPelDes, Anda dapat mengajukan surat keterangan, memantau status pengajuan,
-          dan menyampaikan pengaduan kepada pemerintah desa kapan saja dan di mana saja
-          tanpa perlu datang langsung ke kantor desa.
-        </p>
-      </div>
-    </div>
-  </div>
+  <!-- HERO SECTION -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div
+        class="position-relative overflow-hidden rounded-4 p-5 shadow-lg"
+        style="
+          background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
+        "
+      >
 
-  <!-- Layanan -->
-  <div class="col-12">
-    <h5 class="fw-bold mb-3">Layanan Tersedia</h5>
-  </div>
+        <div class="row align-items-center">
 
-  <div class="col-md-4">
-    <div class="card border-0 shadow-sm h-100">
-      <div class="card-body p-4 text-center">
-        <i class="bi bi-file-earmark-text fs-1 text-primary mb-3 d-block"></i>
-        <h6 class="fw-bold">Pengajuan Surat</h6>
-        <p class="text-muted small mb-3">
-          Ajukan surat keterangan domisili, usaha, tidak mampu, dan lainnya secara online.
-        </p>
-        <a href="{{ url_for('surat.ajukan') }}" class="btn btn-primary btn-sm">Ajukan Sekarang</a>
-      </div>
-    </div>
-  </div>
+          <div class="col-md-8">
+            <span class="badge bg-light text-primary px-3 py-2 mb-3">
+              <i class="bi bi-stars"></i> Sistem Pelayanan Desa Digital
+            </span>
 
-  <div class="col-md-4">
-    <div class="card border-0 shadow-sm h-100">
-      <div class="card-body p-4 text-center">
-        <i class="bi bi-clock-history fs-1 text-success mb-3 d-block"></i>
-        <h6 class="fw-bold">Status Pengajuan</h6>
-        <p class="text-muted small mb-3">
-          Pantau perkembangan pengajuan surat Anda secara real-time.
-        </p>
-        <a href="{{ url_for('surat.list_surat') }}" class="btn btn-success btn-sm">Lihat Status</a>
-      </div>
-    </div>
-  </div>
+            <h2 class="text-white fw-bold mb-3">
+              Selamat Datang,
+              {{ current_user.nama }} 👋
+            </h2>
 
-  <div class="col-md-4">
-    <div class="card border-0 shadow-sm h-100">
-      <div class="card-body p-4 text-center">
-        <i class="bi bi-megaphone fs-1 text-warning mb-3 d-block"></i>
-        <h6 class="fw-bold">Pengaduan Warga</h6>
-        <p class="text-muted small mb-3">
-          Sampaikan aspirasi dan pengaduan kepada pemerintah desa disertai foto bukti.
-        </p>
-        <a href="{{ url_for('pengaduan.buat') }}" class="btn btn-warning btn-sm">Buat Pengaduan</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Info Akun -->
-  <div class="col-12">
-    <div class="card border-0 shadow-sm">
-      <div class="card-body p-4">
-        <h5 class="fw-bold mb-3">Informasi Akun</h5>
-        <div class="row">
-          <div class="col-md-6">
-            <table class="table table-borderless mb-0">
-              <tr><td class="text-muted" width="40%">Nama</td><td><strong>{{ current_user.nama }}</strong></td></tr>
-              <tr><td class="text-muted">NIK</td><td><strong>{{ current_user.nik }}</strong></td></tr>
-              <tr><td class="text-muted">Email</td><td><strong>{{ current_user.email }}</strong></td></tr>
-            </table>
+            <p class="text-light opacity-75 fs-6 mb-0">
+              SiPelDes membantu masyarakat desa mengakses layanan administrasi
+              secara online dengan lebih cepat, praktis, dan transparan tanpa
+              harus datang langsung ke kantor desa.
+            </p>
           </div>
-          <div class="col-md-6">
-            <table class="table table-borderless mb-0">
-              <tr><td class="text-muted" width="40%">Telepon</td><td><strong>{{ current_user.telepon or '-' }}</strong></td></tr>
-              <tr><td class="text-muted">Alamat</td><td><strong>{{ current_user.alamat or '-' }}</strong></td></tr>
-              <tr><td class="text-muted">Role</td><td><span class="badge bg-primary">{{ current_user.role }}</span></td></tr>
-            </table>
+
+          <div class="col-md-4 text-center d-none d-md-block">
+            <i
+              class="bi bi-buildings-fill text-white"
+              style="font-size: 7rem; opacity: 0.15;"
+            ></i>
           </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO APP -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+
+          <div class="d-flex align-items-center mb-3">
+            <div
+              class="rounded-circle d-flex align-items-center justify-content-center me-3"
+              style="
+                width: 55px;
+                height: 55px;
+                background: linear-gradient(135deg,#2563eb,#3b82f6);
+                color: white;
+              "
+            >
+              <i class="bi bi-info-circle-fill fs-4"></i>
+            </div>
+
+            <div>
+              <h4 class="fw-bold mb-1">Tentang SiPelDes</h4>
+              <small class="text-muted">
+                Platform pelayanan administrasi desa berbasis digital
+              </small>
+            </div>
+          </div>
+
+          <p class="text-muted mb-0 lh-lg">
+            <strong>SiPelDes (Sistem Pelayanan Desa)</strong>
+            adalah platform digital yang dirancang untuk memudahkan warga desa
+            dalam mengakses layanan administrasi secara online. Dengan
+            SiPelDes, Anda dapat mengajukan surat keterangan, memantau status
+            pengajuan, dan menyampaikan pengaduan kepada pemerintah desa kapan
+            saja dan di mana saja tanpa perlu datang langsung ke kantor desa.
+          </p>
+
         </div>
       </div>
     </div>
   </div>
 
+  <!-- LAYANAN -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <h4 class="fw-bold mb-1">Layanan Tersedia</h4>
+          <p class="text-muted mb-0">
+            Pilih layanan yang ingin Anda gunakan
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD LAYANAN -->
+  <div class="row g-4 mb-4">
+
+    <!-- SURAT -->
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="card border-0 shadow-lg rounded-4 h-100 position-relative overflow-hidden"
+      >
+
+        <div
+          style="
+            position: absolute;
+            top: -30px;
+            right: -20px;
+            font-size: 120px;
+            color: rgba(37,99,235,0.08);
+          "
+        >
+          <i class="bi bi-file-earmark-text"></i>
+        </div>
+
+        <div class="card-body p-4 text-center position-relative">
+
+          <div
+            class="mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+            style="
+              width: 85px;
+              height: 85px;
+              background: linear-gradient(135deg,#2563eb,#60a5fa);
+              color: white;
+            "
+          >
+            <i class="bi bi-file-earmark-text fs-1"></i>
+          </div>
+
+          <h5 class="fw-bold mb-3">Pengajuan Surat</h5>
+
+          <p class="text-muted small lh-lg">
+            Ajukan surat domisili, usaha, tidak mampu, dan berbagai kebutuhan
+            administrasi lainnya secara online.
+          </p>
+
+          <a
+            href="{{ url_for('surat.ajukan') }}"
+            class="btn btn-primary rounded-pill px-4"
+          >
+            <i class="bi bi-send"></i> Ajukan Sekarang
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- STATUS -->
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="card border-0 shadow-lg rounded-4 h-100 position-relative overflow-hidden"
+      >
+
+        <div
+          style="
+            position: absolute;
+            top: -30px;
+            right: -20px;
+            font-size: 120px;
+            color: rgba(34,197,94,0.08);
+          "
+        >
+          <i class="bi bi-clock-history"></i>
+        </div>
+
+        <div class="card-body p-4 text-center position-relative">
+
+          <div
+            class="mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+            style="
+              width: 85px;
+              height: 85px;
+              background: linear-gradient(135deg,#16a34a,#4ade80);
+              color: white;
+            "
+          >
+            <i class="bi bi-clock-history fs-1"></i>
+          </div>
+
+          <h5 class="fw-bold mb-3">Status Pengajuan</h5>
+
+          <p class="text-muted small lh-lg">
+            Pantau perkembangan dan status pengajuan surat Anda secara
+            real-time dengan mudah.
+          </p>
+
+          <a
+            href="{{ url_for('surat.list_surat') }}"
+            class="btn btn-success rounded-pill px-4"
+          >
+            <i class="bi bi-search"></i> Lihat Status
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PENGADUAN -->
+    <div class="col-lg-4 col-md-6">
+      <div
+        class="card border-0 shadow-lg rounded-4 h-100 position-relative overflow-hidden"
+      >
+
+        <div
+          style="
+            position: absolute;
+            top: -30px;
+            right: -20px;
+            font-size: 120px;
+            color: rgba(245,158,11,0.08);
+          "
+        >
+          <i class="bi bi-megaphone"></i>
+        </div>
+
+        <div class="card-body p-4 text-center position-relative">
+
+          <div
+            class="mx-auto mb-4 rounded-circle d-flex align-items-center justify-content-center"
+            style="
+              width: 85px;
+              height: 85px;
+              background: linear-gradient(135deg,#f59e0b,#fbbf24);
+              color: white;
+            "
+          >
+            <i class="bi bi-megaphone fs-1"></i>
+          </div>
+
+          <h5 class="fw-bold mb-3">Pengaduan Warga</h5>
+
+          <p class="text-muted small lh-lg">
+            Kirim pengaduan, aspirasi, atau laporan masyarakat lengkap dengan
+            bukti foto pendukung.
+          </p>
+
+          <a
+            href="{{ url_for('pengaduan.buat') }}"
+            class="btn btn-warning rounded-pill px-4"
+          >
+            <i class="bi bi-pencil-square"></i> Buat Pengaduan
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- INFORMASI AKUN -->
+  <div class="row">
+    <div class="col-12">
+
+      <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+        <!-- HEADER -->
+        <div
+          class="p-4"
+          style="
+            background: linear-gradient(135deg,#1e293b,#334155);
+          "
+        >
+          <div class="d-flex align-items-center">
+
+            <div
+              class="rounded-circle bg-white d-flex align-items-center justify-content-center me-3"
+              style="
+                width: 65px;
+                height: 65px;
+                color: #1e293b;
+              "
+            >
+              <i class="bi bi-person-circle fs-2"></i>
+            </div>
+
+            <div>
+              <h4 class="text-white fw-bold mb-1">
+                Informasi Akun
+              </h4>
+
+              <p class="text-light opacity-75 mb-0">
+                Detail informasi akun pengguna SiPelDes
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body p-4">
+
+          <div class="row g-4">
+
+            <div class="col-md-6">
+
+              <div class="border rounded-4 p-4 h-100 bg-light">
+
+                <div class="mb-3">
+                  <small class="text-muted">Nama Lengkap</small>
+                  <h6 class="fw-bold mb-0">
+                    {{ current_user.nama }}
+                  </h6>
+                </div>
+
+                <div class="mb-3">
+                  <small class="text-muted">NIK</small>
+                  <h6 class="fw-bold mb-0">
+                    {{ current_user.nik }}
+                  </h6>
+                </div>
+
+                <div>
+                  <small class="text-muted">Email</small>
+                  <h6 class="fw-bold mb-0">
+                    {{ current_user.email }}
+                  </h6>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="border rounded-4 p-4 h-100 bg-light">
+
+                <div class="mb-3">
+                  <small class="text-muted">Telepon</small>
+                  <h6 class="fw-bold mb-0">
+                    {{ current_user.telepon or '-' }}
+                  </h6>
+                </div>
+
+                <div class="mb-3">
+                  <small class="text-muted">Alamat</small>
+                  <h6 class="fw-bold mb-0">
+                    {{ current_user.alamat or '-' }}
+                  </h6>
+                </div>
+
+                <div>
+                  <small class="text-muted">Role</small><br>
+
+                  <span class="badge bg-primary px-3 py-2 rounded-pill">
+                    <i class="bi bi-shield-check"></i>
+                    {{ current_user.role }}
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
 </div>
+
 {% endblock %}
