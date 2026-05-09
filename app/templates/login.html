@@ -1,41 +1,249 @@
-{% extends 'base.html' %} {% block title %}Login - SiPelDes{% endblock %} {%
-block public_content %}
-<div class="min-vh-100 d-flex align-items-center" style="background: #eaf2ff">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-5">
-        <div class="text-center mb-4">
-          <h2 class="fw-bold" style="color: #1a5276">
-            <i class="bi bi-building"></i> SiPelDes
-          </h2>
-          <p class="text-muted">Sistem Pelayanan Desa</p>
+{% extends 'base.html' %}
+{% block title %}Login - SiPelDes{% endblock %}
+
+{% block public_content %}
+
+<div
+  class="min-vh-100 d-flex align-items-center position-relative overflow-hidden"
+  style="
+    background:
+    linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+  "
+>
+
+  <!-- ORNAMENT -->
+  <div
+    style="
+      position:absolute;
+      top:-120px;
+      right:-120px;
+      width:350px;
+      height:350px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.06);
+    "
+  ></div>
+
+  <div
+    style="
+      position:absolute;
+      bottom:-100px;
+      left:-100px;
+      width:300px;
+      height:300px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.05);
+    "
+  ></div>
+
+  <div class="container position-relative">
+
+    <div class="row justify-content-center align-items-center">
+
+      <!-- LEFT SIDE -->
+      <div class="col-lg-6 d-none d-lg-block text-white">
+
+        <span class="badge bg-light text-primary px-3 py-2 mb-4">
+          Sistem Pelayanan Desa Digital
+        </span>
+
+        <h1 class="display-4 fw-bold mb-4">
+          Selamat Datang di
+          <span class="text-warning">
+            SiPelDes
+          </span>
+        </h1>
+
+        <p class="lead opacity-75 mb-4" style="max-width: 550px;">
+          Platform pelayanan desa modern untuk membantu masyarakat
+          mengakses layanan administrasi secara online dengan mudah,
+          cepat, dan aman.
+        </p>
+
+        <div class="d-flex gap-4 mt-4">
+
+          <div>
+            <h3 class="fw-bold mb-1">24/7</h3>
+            <small class="opacity-75">
+              Akses Online
+            </small>
+          </div>
+
+          <div>
+            <h3 class="fw-bold mb-1">100%</h3>
+            <small class="opacity-75">
+              Digital
+            </small>
+          </div>
+
+          <div>
+            <h3 class="fw-bold mb-1">Cepat</h3>
+            <small class="opacity-75">
+              & Praktis
+            </small>
+          </div>
+
         </div>
-        <div class="card shadow border-0 p-4">
-          <h5 class="mb-3">Login Akun</h5>
-          <form method="POST">
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input type="email" name="email" class="form-control" required />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                name="password"
-                class="form-control"
-                required
-              />
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-          </form>
-          <hr />
-          <p class="text-center mb-0">
-            Belum punya akun?
-            <a href="{{ url_for('auth.register') }}">Daftar</a>
-          </p>
-        </div>
+
       </div>
+
+      <!-- LOGIN CARD -->
+      <div class="col-lg-5 col-md-8">
+
+        <div
+          class="card border-0 shadow-lg rounded-5 overflow-hidden"
+          style="
+            backdrop-filter: blur(10px);
+          "
+        >
+
+          <!-- HEADER -->
+          <div
+            class="text-center p-5 pb-3"
+            style="
+              background:
+              linear-gradient(135deg,#ffffff,#f8fafc);
+            "
+          >
+
+            <div
+              class="rounded-circle mx-auto d-flex align-items-center justify-content-center shadow mb-4"
+              style="
+                width:90px;
+                height:90px;
+                background:
+                linear-gradient(135deg,#2563eb,#60a5fa);
+                color:white;
+              "
+            >
+
+              <i class="bi bi-buildings-fill fs-1"></i>
+
+            </div>
+
+            <h2 class="fw-bold mb-1 text-dark">
+              SiPelDes
+            </h2>
+
+            <p class="text-muted mb-0">
+              Sistem Pelayanan Desa
+            </p>
+
+          </div>
+
+          <!-- BODY -->
+          <div class="card-body p-5 pt-4">
+
+            <div class="text-center mb-4">
+
+              <h4 class="fw-bold mb-2">
+                Login Akun
+              </h4>
+
+              <p class="text-muted small mb-0">
+                Silakan masuk menggunakan email dan password Anda
+              </p>
+
+            </div>
+
+            <form method="POST">
+
+              <!-- EMAIL -->
+              <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                  Email
+                </label>
+
+                <div class="input-group">
+
+                  <span class="input-group-text bg-light border-0">
+                    <i class="bi bi-envelope-fill text-primary"></i>
+                  </span>
+
+                  <input
+                    type="email"
+                    name="email"
+                    class="form-control border-0 bg-light py-3"
+                    placeholder="Masukkan email"
+                    required
+                  />
+
+                </div>
+
+              </div>
+
+              <!-- PASSWORD -->
+              <div class="mb-4">
+
+                <label class="form-label fw-semibold">
+                  Password
+                </label>
+
+                <div class="input-group">
+
+                  <span class="input-group-text bg-light border-0">
+                    <i class="bi bi-lock-fill text-primary"></i>
+                  </span>
+
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control border-0 bg-light py-3"
+                    placeholder="Masukkan password"
+                    required
+                  />
+
+                </div>
+
+              </div>
+
+              <!-- BUTTON -->
+              <button
+                type="submit"
+                class="btn btn-primary w-100 py-3 rounded-pill fw-semibold shadow-sm"
+                style="
+                  background:
+                  linear-gradient(135deg,#2563eb,#3b82f6);
+                  border:none;
+                "
+              >
+
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                Login
+
+              </button>
+
+            </form>
+
+            <!-- REGISTER -->
+            <div class="text-center mt-4">
+
+              <p class="text-muted mb-0">
+
+                Belum punya akun?
+
+                <a
+                  href="{{ url_for('auth.register') }}"
+                  class="text-decoration-none fw-bold"
+                >
+                  Daftar Sekarang
+                </a>
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
+
   </div>
+
 </div>
+
 {% endblock %}
